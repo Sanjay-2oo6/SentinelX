@@ -1,0 +1,23 @@
+{
+  "breaches": {
+    "example@email.com": [
+      {
+        "name": "Adobe",
+        "breach_date": "2013-10-04",
+        "data_exposed": ["Email", "Password"]
+      },
+      {
+        "name": "LinkedIn",
+        "breach_date": "2012-05-05",
+        "data_exposed": ["Email", "Password"]
+      }
+    ],
+    "finance.user@email.com": [
+      {
+        "name": "FinApp",
+        "breach_date": "2024-01-10",
+        "data_exposed": ["Email", "Financial Info"]
+      }
+    ]
+  }
+}

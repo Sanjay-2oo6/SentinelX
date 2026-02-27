@@ -1,0 +1,26 @@
+# Environments & Dependency Management
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+*$py.class
+.env
+
+# Project Specific Secrets (CRITICAL)
+execution/firebase_service_account.json
+data/*.db
+debug.log
+.tmp/
+
+# Visual Studio Code
+.vscode/
+
+# Windows OS Files
+Thumbs.db
+Desktop.ini
+
+# Build and Distribution
+build/
+dist/
+*.egg-info/

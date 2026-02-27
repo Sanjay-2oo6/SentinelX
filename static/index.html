@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dark Web Breach Monitor</title>
+  <link rel="stylesheet" href="/static/style.css?v=20">
+</head>
+
+<body>
+  <!-- Dark Star Theme Background -->
+  <div id="stars-container"></div>
+
+  <!-- Top Navigation (Hidden until authenticated) -->
+  <nav id="top-nav" class="top-nav hidden">
+    <div class="user-profile">
+      <img id="user-avatar" src="" alt="User" class="avatar hidden">
+      <div class="user-details">
+        <h3 id="user-name">Welcome</h3>
+        <p id="user-email" class="text-muted"></p>
+      </div>
+    </div>
+    <button id="signout-btn" class="btn btn-secondary btn-sm">Sign Out</button>
+  </nav>
+
+  <div class="container main-content">
+    <header class="main-header reveal">
+      <h1 class="typing-effect">Welcome to SentinelX</h1>
+      <p class="subtitle typing-effect-delayed">Advanced Dark Web Breach Monitor</p>
+    </header>
+
+    <!-- Landing Page Details (Hidden after authentication) -->
+    <div id="landing-details" class="reveal delay-1">
+      <div class="features-grid">
+        <div class="feature-card">
+          <span class="feature-icon">🛡️</span>
+          <h3>Continuous Monitoring</h3>
+          <p>We scan the dark web 24/7 for compromised credentials linked to your email.</p>
+        </div>
+        <div class="feature-card">
+          <span class="feature-icon">⚡</span>
+          <h3>Real-Time Alerts</h3>
+          <p>Get notified instantly via email the moment your data appears in a new breach.</p>
+        </div>
+        <div class="feature-card">
+          <span class="feature-icon">🔍</span>
+          <h3>Deep Analysis</h3>
+          <p>Intelligent risk scoring and targeted remediation steps to secure your identity.</p>
+        </div>
+      </div>
+
+      <div class="stats-container reveal delay-2">
+        <div class="stat-item">
+          <span class="stat-number" data-value="12B+">12B+</span>
+          <span class="stat-label">Pwned Accounts</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number" data-value="774M">774M</span>
+          <span class="stat-label">Breaches Analyzed</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number" data-value="50K+">50K+</span>
+          <span class="stat-label">Secured Users</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number" data-value="1.2M+">1.2M+</span>
+          <span class="stat-label">Scans Run</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number" data-value="24/7">24/7</span>
+          <span class="stat-label">Monitoring</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number" data-value="100%">100%</span>
+          <span class="stat-label">Security</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Auth Section -->
+    <section id="auth-section" class="card reveal delay-3">
+      <h2>Start Protecting Your Identity</h2>
+      <p>Sign in with your Google account to access your personal dashboard and set up real-time monitoring alerts.</p>
+      <button id="google-signin-btn" class="btn btn-google">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
+          <path fill="#4285F4"
+            d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.874 2.684-6.615z" />
+          <path fill="#34A853"
+            d="M9 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.258c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332C2.438 15.983 5.482 18 9 18z" />
+          <path fill="#FBBC05"
+            d="M3.964 10.712c-.18-.54-.282-1.117-.282-1.712s.102-1.172.282-1.712V4.956H.957C.347 6.173 0 7.548 0 9s.347 2.827.957 4.044l3.007-2.332z" />
+          <path fill="#EA4335"
+            d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.582C13.463.891 11.426 0 9 0 5.482 0 2.438 2.017.957 4.956L3.964 7.29C4.672 5.163 6.656 3.58 9 3.58z" />
+        </svg>
+        Continue With Google
+      </button>
+    </section>
+
+    <!-- Dashboard Section (hidden until authenticated) -->
+    <section id="dashboard-section" class="hidden">
+      <!-- Add Email Form -->
+      <div class="card reveal">
+        <h3>Add Email to Monitor</h3>
+        <form id="add-email-form" class="add-email-form">
+          <input type="email" id="email-input" placeholder="Enter email address" required autocomplete="email">
+          <button type="submit" class="btn btn-primary">Add Email</button>
+        </form>
+        <p id="form-error" class="error-text hidden"></p>
+        <p id="form-success" class="success-text hidden"></p>
+      </div>
+
+      <!-- Monitored Emails List -->
+      <div class="card reveal">
+        <h3>Monitored Emails</h3>
+        <div id="emails-loading" class="loading">Loading...</div>
+        <ul id="emails-list" class="emails-list"></ul>
+        <p id="no-emails" class="text-muted hidden">No emails being monitored yet.</p>
+      </div>
+
+      <!-- Breach Alerts -->
+      <div class="card alerts-card reveal">
+        <h3>🚨 Breach Alerts</h3>
+        <div id="alerts-loading" class="loading">Loading alerts...</div>
+        <div id="alerts-list" class="alerts-list"></div>
+        <p id="no-alerts" class="text-muted hidden">No breach alerts. Your monitored emails are safe!</p>
+      </div>
+    </section>
+
+    <!-- Cinematic Footer -->
+    <footer class="cinematic-footer reveal">
+      <div class="footer-content">
+        <h3 class="footer-title">SentinelX</h3>
+        <p class="footer-tagline">Advanced Dark Web Breach Monitor</p>
+
+        <div class="social-links">
+          <a href="#" class="social-icon" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
+            </svg>
+          </a>
+          <a href="#" class="social-icon" aria-label="X (Twitter)">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z" />
+            </svg>
+          </a>
+          <a href="#" class="social-icon" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.469h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.469h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+            </svg>
+          </a>
+          <a href="mailto:contact@sentinelx.com" class="social-icon" aria-label="Gmail">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 010 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z" />
+            </svg>
+          </a>
+        </div>
+
+        <p class="copyright">&copy; 2026 SentinelX Dark Web Monitor. All rights reserved.</p>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth-compat.js"></script>
+
+  <!-- App Config & Logic -->
+  <script src="/static/config.js?v=20"></script>
+  <script src="/static/app.js?v=20"></script>
+</body>
+
+</html>
